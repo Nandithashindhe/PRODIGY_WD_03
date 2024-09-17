@@ -6,6 +6,9 @@ const aiModeButton = document.getElementById('aiMode');
 const modeSelection = document.getElementById('modeSelection');
 const modeInfo = document.getElementById('modeInfo');
 const noteDiv = document.getElementById('note');
+const themeToggleButton = document.getElementById('themeToggle');
+const confettiContainer = document.getElementById('confetti');
+
 let board = Array(9).fill('');
 let currentPlayer = 'X';
 let isGameActive = true;
@@ -29,6 +32,7 @@ function handleCellClick(e) {
     if (checkForWinner()) {
         winnerDiv.textContent = getWinMessage(currentPlayer);
         winnerDiv.style.display = 'block';
+        triggerConfetti();
         isGameActive = false;
         return;
     }
@@ -73,6 +77,7 @@ function aiMove() {
     if (checkForWinner()) {
         winnerDiv.textContent = getWinMessage('O');
         winnerDiv.style.display = 'block';
+        triggerConfetti();
         isGameActive = false;
         return;
     }
@@ -98,6 +103,7 @@ function resetGame() {
     modeInfo.style.display = 'none';
     resetButton.style.display = 'none';
     noteDiv.style.display = 'none';
+    confettiContainer.innerHTML = '';
 }
 
 function startGame(selectedMode) {
@@ -106,13 +112,43 @@ function startGame(selectedMode) {
     game.style.display = 'grid';
     modeInfo.textContent = `Mode: ${selectedMode === 'human' ? 'Play Against Each Other' : 'Play Against AI'}`;
     modeInfo.style.display = 'block';
-    resetButton.style.display = 'block';
+    resetButton.style.display = 'inline-block';
     noteDiv.style.display = 'block';
     initializeBoard();
+}
+
+function triggerConfetti() {
+    const colors = ['#ff0', '#f00', '#0f0', '#00f', '#ff0'];
+    const count = 200;
+
+    for (let i = 0; i < count; i++) {
+        const confettiPiece = document.createElement('div');
+        confettiPiece.className = 'piece';
+        confettiPiece.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+        confettiPiece.style.left = `${Math.random() * 100}vw`;
+        confettiPiece.style.top = `${Math.random() * 100}vh`;
+        confettiPiece.style.width = `${Math.random() * 10 + 5}px`;
+        confettiPiece.style.height = confettiPiece.style.width;
+        confettiPiece.style.animationDuration = `${Math.random() * 2 + 2}s`;
+        confettiContainer.appendChild(confettiPiece);
+    }
+
+    confettiContainer.style.opacity = '1';
+    setTimeout(() => {
+        confettiContainer.style.opacity = '0';
+        setTimeout(() => {
+            confettiContainer.innerHTML = '';
+        }, 1000);
+    }, 3000);
+}
+
+function toggleTheme() {
+    const isDarkMode = document.body.classList.toggle('dark-mode');
+    document.body.classList.toggle('light-mode', !isDarkMode);
+    themeToggleButton.textContent = isDarkMode ? 'Switch to Light Mode' : 'Switch to Dark Mode';
 }
 
 humanModeButton.addEventListener('click', () => startGame('human'));
 aiModeButton.addEventListener('click', () => startGame('ai'));
 resetButton.addEventListener('click', resetGame);
-
-resetButton.style.display = 'none';
+themeToggleButton.addEventListener('click', toggleTheme);

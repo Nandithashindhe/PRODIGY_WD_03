@@ -7,18 +7,22 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <nav class="navbar">
+        <button class="reset" id="reset">Restart Game</button>
+        <button class="theme-toggle" id="themeToggle">Switch to Dark Mode</button>
+    </nav>
     <img src="images/Title.jpg" alt="Tic-Tac-Toe" class="title-image">
     <div class="mode-selection" id="modeSelection">
         <button class="human-mode" id="humanMode">Play Against Each Other</button>
         <button class="ai-mode" id="aiMode">Play Against AI</button>
     </div>
     <div class="game-container">
-        <button class="reset" id="reset">Restart Game / Change Mode</button>
         <div class="game" id="game"></div>
         <div class="mode-info" id="modeInfo"></div>
     </div>
     <div class="winner" id="winner"></div>
     <div class="note" id="note"><b><i>3 in a row wins!!!</i></b></div>
+    <div class="confetti" id="confetti"></div>
 
     <script src="script.js"></script>
 </body>

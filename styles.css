@@ -5,14 +5,68 @@ body {
     align-items: center;
     height: 100vh;
     margin: 0;
+    background-color: #ffffff;
+    color: #000000;
+    font-family: Arial, sans-serif;
+    transition: background-color 0.3s, color 0.3s;
+    position: relative;
+}
+
+body.dark-mode {
     background-color: #121212;
     color: #e0e0e0;
-    font-family: Arial, sans-serif;
+}
+
+body.light-mode {
+    background-color: #ffffff;
+    color: #000000;
+}
+
+.navbar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: transparent;
+    padding: 10px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;
+    color: #000;
+    z-index: 1000;
+}
+
+.navbar button {
+    padding: 5px 10px;
+    font-size: 0.9em;
+    border: 2px solid #1e88e5;
+    border-radius: 5px;
+    background-color: transparent;
+    color: #1e88e5;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.navbar button:hover {
+    background-color: #1e88e5;
+    color: #fff;
+}
+
+.navbar .theme-toggle {
+    border-color: #1e88e5;
+    color: #1e88e5;
+}
+
+.navbar .reset {
+    border-color: #1e88e5;
+    color: #1e88e5;
 }
 
 .title-image {
     width: auto;
-    height: 150px; /* Adjust this value as needed */
+    height: 150px;
+    margin-top: 60px;
     margin-bottom: 20px;
 }
 
@@ -51,14 +105,14 @@ body {
 
 .game {
     display: grid;
-    grid-template-columns: repeat(3, 100px);
-    gap: 5px;
+    grid-template-columns: repeat(3, 120px);
+    gap: 10px;
     display: none;
 }
 
 .cell {
-    width: 100px;
-    height: 100px;
+    width: 120px;
+    height: 120px;
     background-color: #424242;
     border: 2px solid #616161;
     color: #e0e0e0;
@@ -88,7 +142,6 @@ body {
 
 .reset {
     display: none;
-    margin-bottom: 10px;
     padding: 10px;
     border: none;
     border-radius: 5px;
@@ -119,10 +172,53 @@ body {
     display: none;
     margin-top: 20px;
     font-size: 1.2em;
-    color: #e0e0e0;
-    border: 2px solid #fff;
+    color: #000000;
+    border: 2px solid #000000;
     padding: 10px;
     border-radius: 5px;
     text-align: center;
 }
 
+body.dark-mode .mode-info {
+    color: #ffffff;
+    border-color: #ffffff;
+}
+
+.confetti {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    overflow: hidden;
+    opacity: 0;
+    transition: opacity 1s;
+    z-index: 999;
+}
+
+.confetti .piece {
+    position: absolute;
+    background-color: #ff0;
+    border-radius: 50%;
+    pointer-events: none;
+    animation: fall 5s linear infinite, fade 5s linear infinite;
+}
+
+@keyframes fall {
+    from {
+        transform: translateY(-100vh);
+    }
+    to {
+        transform: translateY(100vh);
+    }
+}
+
+@keyframes fade {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
